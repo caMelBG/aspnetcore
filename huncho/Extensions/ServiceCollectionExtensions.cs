@@ -9,6 +9,7 @@ namespace huncho.Extensions
         public static void RegisterRepositories(this IServiceCollection services)
         {
             services.AddTransient<IRepository<Product>, Repository<Product>>();
+            services.AddTransient<IRepository<Order>, Repository<Order>>();
         }
     }
 }

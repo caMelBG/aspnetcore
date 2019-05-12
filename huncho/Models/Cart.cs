@@ -6,7 +6,7 @@ namespace huncho.Models
 {
     public class Cart
     {
-        private List<CartLine> _items = new List<CartLine>();
+        private List<CartItem> _items = new List<CartItem>();
 
         public virtual void AddItem(Product product, int quantity)
         {
@@ -16,7 +16,7 @@ namespace huncho.Models
 
             if (item == null)
             {
-                item = new CartLine
+                item = new CartItem
                 {
                     Product = product,
                     Quantity = quantity
@@ -41,10 +41,10 @@ namespace huncho.Models
 
         public virtual void Clear() => _items.Clear();
 
-        public virtual IEnumerable<CartLine> Items => _items;
+        public virtual IEnumerable<CartItem> Items => _items;
     }
 
-    public class CartLine
+    public class CartItem
     {
         public int CartItemId { get; set; }
         public Product Product { get; set; }
