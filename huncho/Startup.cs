@@ -1,6 +1,7 @@
 ﻿using huncho.Data;
 using huncho.Data.Seeders;
 using huncho.Extensions;
+using huncho.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -39,6 +40,9 @@ namespace huncho
 
             services.AddTransient<DbContext, HunchoDbContext>();
             services.RegisterRepositories();
+
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

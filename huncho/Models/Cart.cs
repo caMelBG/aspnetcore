@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using huncho.Data.Models;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace huncho.Data.Models
+namespace huncho.Models
 {
     public class Cart
     {
