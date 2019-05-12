@@ -1,60 +1,11 @@
-﻿@model huncho.Models.ProductsListViewModel
+﻿@model ProductsListViewModel
 
-@{
-    ViewData["Title"] = "View";
-    var product = Model.Products.FirstOrDefault();
+@foreach (var product in Model.Products)
+{
+    @Html.Partial("_ProductSummary", product)
 }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => product.ProductId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => product.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => product.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => product.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => product.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Products) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-
-<div page-model="@Model.PageInfo" page-action="Index"></div>
+<div page-model="@Model.PageInfo" page-action="Page" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-secondary"
+     page-class-selected="btn-primary" class="btn-group pull-right m-1">
+</div>
