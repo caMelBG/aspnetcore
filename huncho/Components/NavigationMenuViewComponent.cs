@@ -3,7 +3,7 @@ using huncho.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
-namespace SportsStore.Components
+namespace huncho.Views.Shared.Components
 {
     public class NavigationMenuViewComponent : ViewComponent
     {
