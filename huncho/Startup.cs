@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using huncho.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using huncho.Data.Repositories;
+using huncho.Extensions;
 
 namespace huncho
 {
@@ -34,11 +36,14 @@ namespace huncho
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<HunchoDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<HunchoDbContext>();
+
+            services.AddTransient<DbContext, HunchoDbContext>();
+            services.RegisterRepositories();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
