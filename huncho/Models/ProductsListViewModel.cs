@@ -8,5 +8,7 @@ namespace huncho.Models
         public IEnumerable<Product> Products { get; set; }
 
         public PageInfo PageInfo{ get; set; }
+
+        public string Category { get; set; }
     }
 }

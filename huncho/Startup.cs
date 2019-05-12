@@ -65,14 +65,27 @@ namespace huncho
 
             app.UseMvc(routes =>
             {
+                //routes.MapRoute(
+                //    name: null,
+                //    template: "{category}/Page{page:int}",
+                //    defaults: new { Controller = "Product", Action = "Index" });
+
+                //routes.MapRoute(
+                //    name: null,
+                //    template: "Page{page:int}",
+                //    defaults: new { Controller = "Product", Action = "Index", page = 1 });
+
+                //routes.MapRoute(
+                //    name: null,
+                //    template: "{category}",
+                //    defaults: new { Controller = "Product", Action = "Index", page = 1 });
+
                 routes.MapRoute(
-                    name: "pagedProducts",
-                    template: "Product/Page/{page?}",
-                    defaults: new { Controller = "Product", Action = "Index" });
-                
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Product}/{action=Index}/{id?}");
+                    name: null,
+                    template: "",
+                    defaults: new { Controller = "Product", Action = "Index", category = "", page = 1 });
+
+                routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
             });
 
             SeedData.EnsurePopulated(app);
