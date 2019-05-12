@@ -13,13 +13,15 @@ namespace huncho.Data.Seeders
     {
         public static void EnsurePopulated(IApplicationBuilder app)
         {
-            using (var context = app.ApplicationServices.GetRequiredService<HunchoDbContext>())
+            using (var scope = app.ApplicationServices.CreateScope())
             {
-                context.Database.Migrate();
-                if (!context.Products.Any())
+                using (var context = scope.ServiceProvider.GetRequiredService<HunchoDbContext>())
                 {
-                    var products = new Product[]
+                    context.Database.Migrate();
+                    if (!context.Products.Any())
                     {
+                        var products = new Product[]
+                        {
                         new Product
                         {
                             Name = "Kayak",
@@ -83,10 +85,11 @@ namespace huncho.Data.Seeders
                             Category = "Chess",
                             Price = 1200
                         }
-                    };
+                        };
 
-                    context.Products.AddRange(products);
-                    context.SaveChanges();
+                        context.Products.AddRange(products);
+                        context.SaveChanges();
+                    }
                 }
             }
         }

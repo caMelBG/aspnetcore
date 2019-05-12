@@ -66,6 +66,11 @@ namespace huncho
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "pagedProducts",
+                    template: "Product/Page/{page?}",
+                    defaults: new { Controller = "Product", Action = "Index" });
+                
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
