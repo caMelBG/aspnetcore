@@ -1,9 +1,11 @@
 ﻿using huncho.Data.Models;
 using huncho.Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace huncho.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private IRepository<Product> _productRepository;

@@ -1,6 +1,7 @@
 ﻿using huncho.Data.Models;
 using huncho.Data.Repositories;
 using huncho.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -17,11 +18,13 @@ namespace huncho.Controllers
             _cart = cart;
         }
 
+        [Authorize]
         public ViewResult Index()
         {
             return View(_orderRepository.GetAll().Where(o => !o.Shipped));
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult MarkShipped(int orderId)
         {

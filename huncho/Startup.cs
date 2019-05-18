@@ -1,4 +1,5 @@
 ﻿using huncho.Data;
+using huncho.Data.Identity;
 using huncho.Data.Seeders;
 using huncho.Extensions;
 using huncho.Models;
@@ -35,8 +36,16 @@ namespace huncho
             services.AddDbContext<HunchoDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<HunchoDbContext>();
+
+            services.AddDbContext<AppIdentityDbContext>(options =>
+                 options.UseSqlServer(
+                 Configuration.GetConnectionString("IdentityConnection")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddSignInManager<SignInManager<IdentityUser>>()
+                .AddUserManager<UserManager<IdentityUser>>()
+                .AddDefaultTokenProviders();
 
             services.AddTransient<DbContext, HunchoDbContext>();
             services.RegisterRepositories();
@@ -68,8 +77,8 @@ namespace huncho
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
             app.UseSession();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
@@ -100,6 +109,7 @@ namespace huncho
             });
 
             SeedData.EnsurePopulated(app);
+            IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
