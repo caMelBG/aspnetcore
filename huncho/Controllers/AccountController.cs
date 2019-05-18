@@ -1,4 +1,5 @@
 ﻿using huncho.Data.Identity;
+using huncho.Data.Seeders;
 using huncho.Models.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,11 +13,13 @@ namespace huncho.Controllers
     {
         private UserManager<IdentityUser> _userManager;
         private SignInManager<IdentityUser> _signInManager;
-
+        
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+
+            IdentitySeedData.EnsurePopulated(userManager).Wait();
         }
 
         [AllowAnonymous]

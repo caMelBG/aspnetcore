@@ -1,5 +1,6 @@
 ﻿using huncho.Data.Models;
 using huncho.Data.Repositories;
+using huncho.Data.Seeders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -55,6 +56,13 @@ namespace huncho.Controllers
             {
                 return View(product);
             }
+        }
+
+        [HttpPost]
+        public IActionResult SeedDatabase()
+        {
+            SeedData.EnsurePopulated(HttpContext.RequestServices);
+            return RedirectToAction(nameof(Index));
         }
 
         private void SaveProduct(Product product)

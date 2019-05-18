@@ -108,8 +108,11 @@ namespace huncho
                 );
             });
 
-            SeedData.EnsurePopulated(app);
-            IdentitySeedData.EnsurePopulated(app);
+            if (env.IsDevelopment())
+            {
+                SeedData.EnsurePopulated(app);
+                IdentitySeedData.EnsurePopulated(app);
+            }
         }
     }
 }

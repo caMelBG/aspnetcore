@@ -1,7 +1,5 @@
-﻿using huncho.Data.Identity;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace huncho.Data.Seeders
 {
@@ -10,19 +8,13 @@ namespace huncho.Data.Seeders
         private const string AdminUserName = "Admin";
         private const string AdminPassword = "Admin_123";
 
-        public static async void EnsurePopulated(IApplicationBuilder app)
+        public static async Task EnsurePopulated(UserManager<IdentityUser> userManager)
         {
-            using (var scope = app.ApplicationServices.CreateScope())
+            var user = await userManager.FindByIdAsync(AdminUserName);
+            if (user == null)
             {
-                using (var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>())
-                {
-                    var user = await userManager.FindByIdAsync(AdminUserName);
-                    if (user == null)
-                    {
-                        user = new IdentityUser(AdminUserName);
-                        await userManager.CreateAsync(user, AdminPassword);
-                    }
-                }
+                user = new IdentityUser(AdminUserName);
+                await userManager.CreateAsync(user, AdminPassword);
             }
         }
     }

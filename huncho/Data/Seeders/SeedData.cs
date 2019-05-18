@@ -1,27 +1,21 @@
 ﻿using huncho.Data.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace huncho.Data.Seeders
 {
     public static class SeedData
     {
-        public static void EnsurePopulated(IApplicationBuilder app)
+        public static void EnsurePopulated(IServiceProvider services)
         {
-            using (var scope = app.ApplicationServices.CreateScope())
+            using (var context = services.GetRequiredService<HunchoDbContext>())
             {
-                using (var context = scope.ServiceProvider.GetRequiredService<HunchoDbContext>())
+                //context.Database.Migrate();
+                if (!context.Products.Any())
                 {
-                    context.Database.Migrate();
-                    if (!context.Products.Any())
+                    var products = new Product[]
                     {
-                        var products = new Product[]
-                        {
                         new Product
                         {
                             Name = "Kayak",
@@ -85,11 +79,10 @@ namespace huncho.Data.Seeders
                             Category = "Chess",
                             Price = 1200
                         }
-                        };
+                    };
 
-                        context.Products.AddRange(products);
-                        context.SaveChanges();
-                    }
+                    context.Products.AddRange(products);
+                    context.SaveChanges();
                 }
             }
         }
