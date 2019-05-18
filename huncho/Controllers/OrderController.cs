@@ -17,6 +17,23 @@ namespace huncho.Controllers
             _cart = cart;
         }
 
+        public ViewResult Index()
+        {
+            return View(_orderRepository.GetAll().Where(o => !o.Shipped));
+        }
+
+        [HttpPost]
+        public IActionResult MarkShipped(int orderId)
+        {
+            var order = _orderRepository.GetById(orderId);
+            if (order != null)
+            {
+                order.Shipped = true;
+                _orderRepository.Insert(order);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         public ViewResult Checkout()
         {
             return View(new Order());

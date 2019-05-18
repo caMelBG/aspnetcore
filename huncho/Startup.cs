@@ -88,12 +88,15 @@ namespace huncho
                 //    template: "{category}",
                 //    defaults: new { Controller = "Product", Action = "Index", page = 1 });
 
-                routes.MapRoute(
-                    name: null,
-                    template: "",
-                    defaults: new { Controller = "Product", Action = "Index", category = "", page = 1 });
+                //routes.MapRoute(
+                //    name: null,
+                //    template: "",
+                //    defaults: new { Controller = "Product", Action = "Index", category = "", page = 1 });
 
-                routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
+                routes.MapRoute(
+                    name: "default", 
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                );
             });
 
             SeedData.EnsurePopulated(app);
