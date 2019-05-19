@@ -35,11 +35,19 @@
                asp-action="Logout" asp-controller="Account">Log Out</a>
         </div>
     </div>
-    
+
     @if (TempData["Message"] != null)
     {
         <div class="alert alert-success">@TempData["Message"]</div>
     }
     @RenderBody()
+
+    <a asp-route-legacyurl="/articles/Windows_3.1_Overview.html" class="btn btn-primary">
+        This is an outgoing URL
+    </a>
+    <p>
+        URL: @Url.Action(null, null, new { legacyurl = "/articles/Windows_3.1_Overview.html" })
+    </p>
+
 </body>
 </html>

@@ -2,6 +2,7 @@
 using huncho.Data.Identity;
 using huncho.Data.Seeders;
 using huncho.Extensions;
+using huncho.Infrastructure;
 using huncho.Middlewares;
 using huncho.Models;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -104,14 +107,26 @@ namespace huncho
                 //    name: null,
                 //    template: "",
                 //    defaults: new { Controller = "Product", Action = "Index", category = "", page = 1 });
-                
+
+                //Custome route handler
+                routes.Routes.Add(new LegacyRoute(
+                    app.ApplicationServices,
+                     "/articles/Windows_3.1_Overview.html",
+                     "/old/.NET_1.0_Class_Library")
+                );
+
                 routes.MapRoute(
                     name: "customeRouteConstraint",
-                    template: "{controller=Home}/{action=Index}/{id:weekday?}"
+                    template: "{controller}/{action}/{id}",
+                    defaults: new { controller = "Home", action = "Index" },
+                    constraints: new {
+                        id = new CompositeRouteConstraint(
+                            new IRouteConstraint[] { new WeekDayConstraint() })
+                    }
                 );
-                
+
                 routes.MapRoute(
-                    name: "default", 
+                    name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}"
                 );
             });
