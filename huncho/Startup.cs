@@ -104,7 +104,12 @@ namespace huncho
                 //    name: null,
                 //    template: "",
                 //    defaults: new { Controller = "Product", Action = "Index", category = "", page = 1 });
-
+                
+                routes.MapRoute(
+                    name: "customeRouteConstraint",
+                    template: "{controller=Home}/{action=Index}/{id:weekday?}"
+                );
+                
                 routes.MapRoute(
                     name: "default", 
                     template: "{controller=Home}/{action=Index}/{id?}"
