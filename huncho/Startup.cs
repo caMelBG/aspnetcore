@@ -2,6 +2,7 @@
 using huncho.Data.Identity;
 using huncho.Data.Seeders;
 using huncho.Extensions;
+using huncho.Middlewares;
 using huncho.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -62,6 +63,8 @@ namespace huncho
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseMiddleware<ShortCircuitMiddleware>();
+            app.UseMiddleware<ContentMiddleware>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
