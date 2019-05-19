@@ -39,7 +39,7 @@ namespace huncho
 
             services.AddDbContext<AppIdentityDbContext>(options =>
                  options.UseSqlServer(
-                 Configuration.GetConnectionString("IdentityConnection")));
+                    Configuration.GetConnectionString("IdentityConnection")));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
@@ -110,8 +110,8 @@ namespace huncho
 
             if (env.IsDevelopment())
             {
-                SeedData.EnsurePopulated(app);
-                IdentitySeedData.EnsurePopulated(app);
+                //SeedData.EnsurePopulated(app);
+                //IdentitySeedData.EnsurePopulated(app);
             }
         }
     }

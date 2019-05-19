@@ -1,10 +1,9 @@
 ﻿using huncho.Data.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace huncho.Data
 {
-    public class HunchoDbContext : IdentityDbContext
+    public class HunchoDbContext : DbContext
     {
         public HunchoDbContext(DbContextOptions<HunchoDbContext> options)
             : base(options)
