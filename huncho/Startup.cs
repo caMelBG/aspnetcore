@@ -108,6 +108,10 @@ namespace huncho
                 //    template: "",
                 //    defaults: new { Controller = "Product", Action = "Index", category = "", page = 1 });
 
+                routes.MapRoute(
+                     name: "areas",
+                     template: "{area:exists}/{controller=Home}/{action=Index}");
+
                 //Custome route handler
                 routes.Routes.Add(new LegacyRoute(
                     app.ApplicationServices,
