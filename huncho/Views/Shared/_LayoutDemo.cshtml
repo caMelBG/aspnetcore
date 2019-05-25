@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+    IgnoreBody();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_LayoutDemo</title>
+
+    @*
+        In ASP.NET MVC 5 and bellow, it is used Styles.Render() and Scripts.Render() methods
+    *@
+
+    <environment names="Development,Staging,Production">
+        <link href="~/css/site.css" rel="stylesheet" />
+        <script src="~/js/site.js"></script>
+    </environment>
+
+</head>
+<body>
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>Home Page.</h1>
+                <h2>
+                    Modify this template to jump-start your ASP.NET MVC application.
+                </h2>
+            </hgroup>
+            <p>
+                To learn more about ASP.NET MVC visit
+                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">
+                    http://asp.net/mvc
+                </a>.
+                The page features <mark>videos, tutorials, and samples</mark> to help
+                you get the most from ASP.NET MVC.
+                If you have any questions about ASP.NET MVC visit
+                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
+            </p>
+        </div>
+    </section>
+    @*@RenderBody()*@
+</body>
+</html>
