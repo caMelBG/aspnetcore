@@ -10,9 +10,9 @@
 <form asp-action="Login" asp-controller="Account" method="post">
     <input type="hidden" asp-for="ReturnUrl" />
     <div class="form-group">
-        <label asp-for="Name"></label>
-        <div><span asp-validation-for="Name" class="text-danger"></span></div>
-        <input asp-for="Name" class="form-control" />
+        <label asp-for="UserName"></label>
+        <div><span asp-validation-for="UserName" class="text-danger"></span></div>
+        <input asp-for="UserName" asp-route-username="" class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="Password"></label>

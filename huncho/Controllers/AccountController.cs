@@ -1,9 +1,9 @@
-﻿using huncho.Data.Identity;
-using huncho.Data.Seeders;
+﻿using huncho.Data.Seeders;
 using huncho.Models.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace huncho.Controllers
@@ -40,7 +40,7 @@ namespace huncho.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByNameAsync(loginModel.Name);
+                var user = await _userManager.FindByNameAsync(loginModel.UserName);
                 if (user != null)
                 {
                     await _signInManager.SignOutAsync();
@@ -59,6 +59,18 @@ namespace huncho.Controllers
         {
             await _signInManager.SignOutAsync();
             return Redirect(returnUrl);
+        }
+
+        [AllowAnonymous]
+        [AcceptVerbs(nameof(HttpMethod.Get), nameof(HttpMethod.Post))]
+        public JsonResult IsUserExists([FromQuery(Name = "UserName")] string username)
+        {
+            var user = _userManager.FindByNameAsync(username).Result;
+            if (user != null)
+            {
+                return Json(true);
+            }
+            return Json(false);
         }
     }
 }

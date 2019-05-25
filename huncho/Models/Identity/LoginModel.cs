@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace huncho.Models.Identity
 {
     public class LoginModel
     {
         [Required]
-        public string Name { get; set; }
+        [Remote("IsUserExists", "Account", ErrorMessage = "User with this name dosent exists.")]
+        public string UserName { get; set; }
 
         [Required]
         [UIHint("password")]
